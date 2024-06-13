@@ -34,8 +34,17 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
+  List<Widget> listWidget = [
+    const Icon(Icons.face),
+    const Icon(Icons.abc),
+    const Icon(Icons.favorite),
+  ];
+  int index = 0;
+
+  TabController? tabController;
 
   List<String> priceTag = [
     '\$5.00',
@@ -71,6 +80,22 @@ class _MyHomePageState extends State<MyHomePage> {
     'Angel Hair Pasta Served with Earn,Vermont Goat Cheese',
     'Angel Hair Pasta Served with Earn,Vermont Goat Cheese',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      initialIndex: index,
+      length: listWidget.length,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController?.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -498,11 +523,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }),
                 const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: VerticalDivider(
-                        thickness: 1.0,
-                        color: Colors.black,
-                      ),),
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: VerticalDivider(
+                    thickness: 1.0,
+                    color: Colors.black,
+                  ),
+                ),
                 Expanded(
                     child: IndexedStack(
                   index: selectedIndex,
@@ -564,9 +590,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     Center(
-                        child: Text(
-                      'Curry',
-                      style: context.fontEx,
+                        child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        TabBarView(
+                          controller: tabController,
+                          children: listWidget,
+                        ),
+                        Positioned(
+                            bottom: 20.0,
+                            child: TabPageSelector(
+                              indicatorSize: 18.0,
+                              controller: tabController,
+                              color: Colors.black38,
+                              selectedColor: Colors.red,
+                            )),
+                      ],
                     )),
                     Center(
                         child: Text(
@@ -691,6 +730,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           )
+        ],
+      ),
+      floatingActionButton: ButtonBar(
+        children: [
+          FloatingActionButton.small(
+            onPressed: () {
+              (index != listWidget.length - 1) ? index++ : index = 0;
+              tabController?.animateTo(index);
+            },
+            elevation: 0.4,
+            child: const Icon(Icons.navigate_next),
+          ),
         ],
       ),
     );
