@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:app2food/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:app2food/constant.dart';
@@ -496,12 +498,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }),
                 const Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: VerticalDivider(
-                    thickness: 1.0,
-                    color: Colors.black,
-                  ),
-                ),
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Baseline(
+                      baseline: 0.2,
+                      baselineType: TextBaseline.ideographic,
+                      child: VerticalDivider(
+                        thickness: 1.0,
+                        color: Colors.black,
+                      ),
+                    )),
                 Expanded(
                     child: IndexedStack(
                   index: selectedIndex,
@@ -541,15 +546,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                     subTitles[index],
                                     style: const TextStyle(fontSize: 11.5),
                                   ),
-                                  icon: Container(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.shade100,
-                                        borderRadius:
-                                            BorderRadius.circular(6.0)),
-                                    child: Icon(Icons.add,
-                                        color: context.colorARGBEx),
+                                  icon: ClipRRect(
+                                    child: BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                          sigmaX: 15, sigmaY: 15),
+                                      child: Container(
+                                        width: 40.0,
+                                        height: 40.0,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.shade100,
+                                            borderRadius:
+                                                BorderRadius.circular(6.0)),
+                                        child: Icon(Icons.add,
+                                            color: context.colorARGBEx),
+                                      ),
+                                    ),
                                   ),
                                 );
                               }),
