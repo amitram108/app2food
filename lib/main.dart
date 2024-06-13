@@ -499,14 +499,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 }),
                 const Padding(
                     padding: EdgeInsets.only(top: 20.0),
-                    child: Baseline(
-                      baseline: 0.2,
-                      baselineType: TextBaseline.ideographic,
-                      child: VerticalDivider(
+                    child: VerticalDivider(
                         thickness: 1.0,
                         color: Colors.black,
-                      ),
-                    )),
+                      ),),
                 Expanded(
                     child: IndexedStack(
                   index: selectedIndex,
