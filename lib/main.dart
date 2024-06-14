@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:app2food/widgets/item_widget.dart';
+import 'package:app2food/widgets/page_selecter.dart';
 import 'package:flutter/material.dart';
 import 'package:app2food/constant.dart';
 
@@ -25,6 +26,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Widget widgetOne(BuildContext context) {
+  return Container(
+    alignment: Alignment.center,
+    decoration: BoxDecoration(color: Colors.grey.shade100),
+    width: MediaQuery.of(context).size.width * 0.5,
+    height: MediaQuery.of(context).size.height * 0.5,
+  );
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -38,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
   List<Widget> listWidget = [
-    const Icon(Icons.face),
+    const PageSelecter(),
     const Icon(Icons.abc),
     const Icon(Icons.favorite),
   ];
