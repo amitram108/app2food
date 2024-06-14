@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -141,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NavigationRail(
-                            minWidth: 75,
+                            minWidth: mediaQuery.size.width * 0.20,
                             destinations: [
                               NavigationRailDestination(
                                   icon: Padding(
@@ -658,8 +659,8 @@ class _MyHomePageState extends State<MyHomePage>
                     Row(
                       children: [
                         Container(
-                          width: 65.0,
-                          height: 25.0,
+                          width: mediaQuery.size.width * 0.18,
+                          height: mediaQuery.size.height * 0.035,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: context.colorARGBEx),
@@ -671,8 +672,8 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                         10.wWidth,
                         Container(
-                          width: 110.0,
-                          height: 25.0,
+                          width: mediaQuery.size.width * 0.36,
+                          height: mediaQuery.size.height * 0.035,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: context.colorARGBEx),
@@ -705,8 +706,8 @@ class _MyHomePageState extends State<MyHomePage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: 30.0,
-                      width: MediaQuery.of(context).size.width / 2.5,
+                      height: mediaQuery.size.height * 0.035,
+                      width: mediaQuery.size.width * 0.45,
                       decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4.0)),
@@ -717,8 +718,8 @@ class _MyHomePageState extends State<MyHomePage>
                       )),
                     ),
                     Container(
-                        height: 30.0,
-                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: mediaQuery.size.height * 0.035,
+                        width: mediaQuery.size.width * 0.45,
                         decoration: BoxDecoration(
                             color: context.colorARGBEx,
                             borderRadius: BorderRadius.circular(4.0)),
