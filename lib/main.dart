@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:app2food/widgets/item_widget.dart';
-import 'package:app2food/widgets/page_selecter.dart';
 import 'package:flutter/material.dart';
 import 'package:app2food/constant.dart';
 
@@ -26,15 +23,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Widget widgetOne(BuildContext context) {
-  return Container(
-    alignment: Alignment.center,
-    decoration: BoxDecoration(color: Colors.grey.shade100),
-    width: MediaQuery.of(context).size.width * 0.5,
-    height: MediaQuery.of(context).size.height * 0.5,
-  );
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -44,17 +32,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
-  List<Widget> listWidget = [
-    const PageSelecter(),
-    const Icon(Icons.abc),
-    const Icon(Icons.favorite),
-  ];
-  int index = 0;
-
-  TabController? tabController;
 
   List<String> priceTag = [
     '\$5.00',
@@ -92,24 +71,7 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   @override
-  void initState() {
-    super.initState();
-    tabController = TabController(
-      initialIndex: index,
-      length: listWidget.length,
-      vsync: this,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    tabController?.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -152,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NavigationRail(
-                            minWidth: mediaQuery.size.width * 0.20,
+                            minWidth: 75,
                             destinations: [
                               NavigationRailDestination(
                                   icon: Padding(
@@ -579,21 +541,15 @@ class _MyHomePageState extends State<MyHomePage>
                                     subTitles[index],
                                     style: const TextStyle(fontSize: 11.5),
                                   ),
-                                  icon: ClipRRect(
-                                    child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 15, sigmaY: 15),
-                                      child: Container(
-                                        width: 40.0,
-                                        height: 40.0,
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey.shade100,
-                                            borderRadius:
-                                                BorderRadius.circular(6.0)),
-                                        child: Icon(Icons.add,
-                                            color: context.colorARGBEx),
-                                      ),
-                                    ),
+                                  icon: Container(
+                                    width: 40.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius:
+                                            BorderRadius.circular(6.0)),
+                                    child: Icon(Icons.add,
+                                        color: context.colorARGBEx),
                                   ),
                                 );
                               }),
@@ -601,22 +557,9 @@ class _MyHomePageState extends State<MyHomePage>
                       ],
                     ),
                     Center(
-                        child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        TabBarView(
-                          controller: tabController,
-                          children: listWidget,
-                        ),
-                        Positioned(
-                            bottom: 20.0,
-                            child: TabPageSelector(
-                              indicatorSize: 18.0,
-                              controller: tabController,
-                              color: Colors.black38,
-                              selectedColor: Colors.red,
-                            )),
-                      ],
+                        child: Text(
+                      'Curry',
+                      style: context.fontEx,
                     )),
                     Center(
                         child: Text(
@@ -669,8 +612,8 @@ class _MyHomePageState extends State<MyHomePage>
                     Row(
                       children: [
                         Container(
-                          width: mediaQuery.size.width * 0.18,
-                          height: mediaQuery.size.height * 0.035,
+                          width: 65.0,
+                          height: 25.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: context.colorARGBEx),
@@ -682,8 +625,8 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                         10.wWidth,
                         Container(
-                          width: mediaQuery.size.width * 0.36,
-                          height: mediaQuery.size.height * 0.035,
+                          width: 110.0,
+                          height: 25.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: context.colorARGBEx),
@@ -716,8 +659,8 @@ class _MyHomePageState extends State<MyHomePage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: mediaQuery.size.height * 0.035,
-                      width: mediaQuery.size.width * 0.45,
+                      height: 30.0,
+                      width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4.0)),
@@ -728,8 +671,8 @@ class _MyHomePageState extends State<MyHomePage>
                       )),
                     ),
                     Container(
-                        height: mediaQuery.size.height * 0.035,
-                        width: mediaQuery.size.width * 0.45,
+                        height: 30.0,
+                        width: MediaQuery.of(context).size.width / 2.5,
                         decoration: BoxDecoration(
                             color: context.colorARGBEx,
                             borderRadius: BorderRadius.circular(4.0)),
@@ -741,18 +684,6 @@ class _MyHomePageState extends State<MyHomePage>
               ],
             ),
           )
-        ],
-      ),
-      floatingActionButton: ButtonBar(
-        children: [
-          FloatingActionButton.small(
-            onPressed: () {
-              (index != listWidget.length - 1) ? index++ : index = 0;
-              tabController?.animateTo(index);
-            },
-            elevation: 0.4,
-            child: const Icon(Icons.navigate_next),
-          ),
         ],
       ),
     );
